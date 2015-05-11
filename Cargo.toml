@@ -2,3 +2,9 @@
 name = "rusty_blocks"
 version = "0.1.0"
 authors = ["Adam Sheehan <a.t.sheehan@gmail.com>"]
+
+[dependencies]
+rand = "0.3"
+
+[dependencies.sdl]
+git = "https://github.com/brson/rust-sdl"
