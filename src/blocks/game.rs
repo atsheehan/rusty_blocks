@@ -5,6 +5,7 @@ use sdl::video::{Surface, Color};
 use sdl::event::{Key, Event};
 
 use blocks::grid::Grid;
+use blocks::renderer;
 
 pub struct Game {
     finished: bool,
@@ -28,6 +29,7 @@ impl Game {
 
     pub fn draw(&self, screen: &Surface) {
         screen.clear();
+        renderer::draw(self, screen);
         screen.flip();
     }
 
