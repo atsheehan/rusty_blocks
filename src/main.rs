@@ -1,38 +1,30 @@
 extern crate sdl;
-extern crate rand;
 
-use sdl::video::{SurfaceFlag, VideoFlag};
-use sdl::event::Event;
+mod blocks;
 
-mod game;
-use game::Game;
+use sdl::video::{Surface, SurfaceFlag, VideoFlag};
+use blocks::game::Game;
 
-fn main() {
+fn initialize_sdl(caption: &str) -> Surface {
     sdl::init(&[sdl::InitFlag::Video]);
-    sdl::wm::set_caption("rust-sdl demo - video", "rust-sdl");
+    sdl::wm::set_caption(caption, caption);
 
-    let screen = match sdl::video::set_video_mode(800, 600, 32,
-                                                  &[SurfaceFlag::HWSurface],
-                                                  &[VideoFlag::DoubleBuf]) {
+    match sdl::video::set_video_mode(800, 600, 32,
+                                     &[SurfaceFlag::HWSurface],
+                                     &[VideoFlag::DoubleBuf]) {
         Ok(screen) => screen,
         Err(err) => panic!("failed to set video mode: {}", err)
-    };
+    }
+}
 
+fn main() {
+    let screen = initialize_sdl("rusty blocks");
     let mut game = Game::new();
 
     while !game.over() {
-        screen.clear();
+        game.update();
+        game.handle_events();
         game.draw(&screen);
-        screen.flip();
-
-        loop {
-            match sdl::event::poll_event() {
-                Event::Quit => game.exit(),
-                Event::None => break,
-                Event::Key(k, _, _, _) => game.key_event(k),
-                _ => {}
-            }
-        }
     }
 
     sdl::quit();
