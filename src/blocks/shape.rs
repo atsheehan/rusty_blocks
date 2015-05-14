@@ -23,8 +23,8 @@ const SHAPES: [[i16; CELL_COUNT]; ROTATIONS] = [
     ];
 
 pub struct Shape {
-    x: i16,
-    y: i16,
+    pub x: i16,
+    pub y: i16,
     rotation: usize,
 }
 

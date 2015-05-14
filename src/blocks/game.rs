@@ -38,7 +38,7 @@ impl Game {
             match sdl::event::poll_event() {
                 Event::Quit => self.exit(),
                 Event::None => break,
-                Event::Key(k, _, _, _) => self.key_event(k),
+                Event::Key(k, keydown, _, _) => self.key_event(k, keydown),
                 _ => {}
             }
         }
@@ -48,11 +48,12 @@ impl Game {
         self.finished = true;
     }
 
-    fn key_event(&mut self, key: Key) {
-
-
+    fn key_event(&mut self, key: Key, keydown: bool) {
         match key {
             Key::Escape => self.exit(),
+            Key::Right if keydown => self.grid.move_right(),
+            Key::Left if keydown => self.grid.move_left(),
+            Key::Down if keydown => self.grid.move_down(),
             _ => {},
         }
     }

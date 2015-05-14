@@ -17,6 +17,27 @@ impl Grid {
         }
     }
 
+    pub fn move_right(&mut self) {
+        match self.current_shape {
+            Some(ref mut shape) => shape.x += 1,
+            None => {}
+        };
+    }
+
+    pub fn move_left(&mut self) {
+        match self.current_shape {
+            Some(ref mut shape) => shape.x -= 1,
+            None => {}
+        };
+    }
+
+    pub fn move_down(&mut self) {
+        match self.current_shape {
+            Some(ref mut shape) => shape.y += 1,
+            None => {}
+        };
+    }
+
     pub fn cell(&self, row: i16, col: i16) -> i16 {
         match self.current_shape {
             Some(ref shape) => match shape.cell(row, col) {
