@@ -5,11 +5,14 @@ mod blocks;
 use sdl::video::{Surface, SurfaceFlag, VideoFlag};
 use blocks::game::Game;
 
+const SCREEN_WIDTH: isize = 1280;
+const SCREEN_HEIGHT: isize = 720;
+
 fn initialize_sdl(caption: &str) -> Surface {
     sdl::init(&[sdl::InitFlag::Video]);
     sdl::wm::set_caption(caption, caption);
 
-    match sdl::video::set_video_mode(800, 600, 32,
+    match sdl::video::set_video_mode(SCREEN_WIDTH, SCREEN_HEIGHT, 32,
                                      &[SurfaceFlag::HWSurface],
                                      &[VideoFlag::DoubleBuf]) {
         Ok(screen) => screen,
