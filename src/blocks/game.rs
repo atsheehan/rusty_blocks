@@ -9,7 +9,7 @@ use blocks::renderer;
 
 pub struct Game {
     finished: bool,
-    grid: Grid,
+    pub grid: Grid,
 }
 
 impl Game {
