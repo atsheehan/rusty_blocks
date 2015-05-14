@@ -41,4 +41,32 @@ impl Shape {
             None
         }
     }
+
+    pub fn blocks(&self) -> Vec<(i16, i16)> {
+        let shape = SHAPES[self.rotation];
+        let mut occupied_cells: Vec<(i16, i16)> = Vec::with_capacity(4);
+
+        for row in 0..ROWS {
+            for col in 0..COLUMNS {
+                let i: usize = ((row * COLUMNS) + col) as usize;
+                if shape[i] > 0 {
+                    occupied_cells.push((row + self.y, col + self.x));
+                }
+            }
+        }
+
+        occupied_cells
+    }
+
+    pub fn move_left(&self) -> Shape {
+        Shape { x: self.x - 1, y: self.y, rotation: self.rotation }
+    }
+
+    pub fn move_right(&self) -> Shape {
+        Shape { x: self.x + 1, y: self.y, rotation: self.rotation }
+    }
+
+    pub fn move_down(&self) -> Shape {
+        Shape { x: self.x, y: self.y + 1, rotation: self.rotation }
+    }
 }
